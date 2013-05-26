@@ -1,5 +1,4 @@
-
-
+```js
 var i = {
     att: "i's att",
     con: function() {
@@ -25,6 +24,7 @@ var i = {
     }
 };
 i.con()
+```
 //~~~i.con的this:
 //Object {att: "i's att", con: function}
 
@@ -47,6 +47,8 @@ i.con()
 //i's att
 //"~~~done"
 
+
+```js
 var iConstructor = function(e) {
     var iCatt = this.att = e;
     var self = this;
@@ -107,7 +109,7 @@ iConstructor.prototype.con = function() {
     })();
 };
 var i = new iConstructor("i.att");
-
+```
 i.con()
 //~~~i.con的this:
 //iConstructor {att: "i.att", iObjConstructor: function, iObj: iObjConstructor, con: function}
@@ -155,7 +157,7 @@ i.iObj.ihiThis
 
 
 
-
+```js
 var i = function() {
     var some = "I'S SOME";
     console.log('~~~整个函数i的this')
@@ -222,7 +224,7 @@ var i = function() {
         return 'done';
     })();
 };
-
+```
 i()
 //~~~整个函数i的this
 //Window
