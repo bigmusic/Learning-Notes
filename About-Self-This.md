@@ -31,7 +31,7 @@ i.con()
 //Object {att: "i's att", con: function}
 
 //~~~i.con返回一个匿名函数的this
-//Window {top: Window, window: Window, location: Location, external: Object, chrome: Object…}
+//Window 
 
 //~~~这个匿名函数依然能访问i.con的作用域的局部变量consvar
 //i.con's var
