@@ -1,3 +1,30 @@
+#关于Self=This,和function一些问题的探讨
+function在Javascript里是一个很有趣的东西,它是对象,但对象本身是不可以被调用的,对象有的是方法(method)也就是function.
+但这个'对象'非但可以被调用,而且可以有自己属性!
+例如:
+
+```js
+var f1=function(){return 'f1'};
+var f2=f1;
+f2.att='att'
+console.log(f1.att);//'att'
+console.log(f2.att);//'att'
+f2=function(){return 'f2'};
+f2();//f2
+f1();//f1
+typeof f1;//'function'
+typeof f1.att//'string'
+```
+
+其次,function的上下文很奇怪,如果function里面有this,且这个function是直接声明(无论局部还是全局,var还是function Name(){})
+包括任何地方的匿名function,this永远都会指向全局对象,在浏览器端就是window
+
+只有当function作为对象的方法时,this才会指向直属对象,另外一种情况是作为构造函数时,利用运算符new创造新对象,
+这时this是指向这个新对象!
+
+##第一种情况,当i是一个用对象字面量声明的对象
+self主要用于对象内方法的函数引用对象本身,当然这样的情况很少,因为本身这个对象不可以复制,除非用特殊手段,引用本身的话直接写名字就好了
+
 ```js
 var i = {
     att: "i's att",
@@ -50,6 +77,9 @@ i.con()
 //"~~~done"
 ```
 
+##第二种情况,就是通过一个构造函数来创建对象i
+通过构造函数,可以解决第三种情况中对象中的对象不能访问上一层的属性,
+我们只需要利用好self=this和原始构造函数的作用域就可以另不同层级对象间互相访问了
 
 ```js
 var iConstructor = function(e) {
@@ -153,6 +183,11 @@ i.iObj.ihiSelf
 i.iObj.ihiThis
 //iObjConstructor {att: "from outside i.att", ihiSelf: iConstructor, ihiThis: iObjConstructor, con: function}
 ```
+
+##第三种情况,i是一个普通声明的function
+通过在内部建立一个局部对象iObj观察其self和this的变化,
+这里有个有趣奇怪的现象,当this传入一个局部对象的属性时,无论对象的嵌套有多深入,都直接指向全局对象window而非直属对象
+
 
 ```js
 var i = function() {
