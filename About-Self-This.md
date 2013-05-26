@@ -23,8 +23,10 @@ var i = {
         })();
     }
 };
-i.con()
 ```
+
+```js
+i.con()
 //~~~i.con的this:
 //Object {att: "i's att", con: function}
 
@@ -46,6 +48,7 @@ i.con()
 //~~~或者,利用self.att也可以
 //i's att
 //"~~~done"
+```
 
 
 ```js
@@ -108,8 +111,10 @@ iConstructor.prototype.con = function() {
         };
     })();
 };
-var i = new iConstructor("i.att");
 ```
+
+```js
+var i = new iConstructor("i.att");
 i.con()
 //~~~i.con的this:
 //iConstructor {att: "i.att", iObjConstructor: function, iObj: iObjConstructor, con: function}
@@ -147,15 +152,7 @@ i.iObj.ihiSelf
 //iConstructor {att: "i.att", iObjConstructor: function, iObj: iObjConstructor, con: function}
 i.iObj.ihiThis
 //iObjConstructor {att: "from outside i.att", ihiSelf: iConstructor, ihiThis: iObjConstructor, con: function}
-
-
-
-
-
-
-
-
-
+```
 
 ```js
 var i = function() {
@@ -225,6 +222,8 @@ var i = function() {
     })();
 };
 ```
+
+```js
 i()
 //~~~整个函数i的this
 //Window
@@ -262,3 +261,4 @@ i()
 //iObj.conGo用匿名函数返回i作用域里的局部变量some I'S SOME
 //iObj.anoObj.some=some,嵌套对象的属性依然能得到some I'S SOME
 //"done"
+```
