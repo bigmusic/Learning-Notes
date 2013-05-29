@@ -20,7 +20,7 @@ typeof f1.att//'string'
 其次,function的上下文很奇怪,  
 function里面的this,是对其上下文的引用.  
 **如果这个function是直接声明** (无论局部还是全局,var还是function Name(){})  
-包括任何地方的匿名function, **this就会指向全局对象**, 在浏览器端就是window
+包括任何地方的匿名function, **this都会指向全局对象**, 在浏览器端就是window
 
 只有 **当function作为对象的方法时,this才会指向直属对象**,  
 另外一种情况是作为构造函数时, **利用运算符new创造新对象,**  
@@ -35,6 +35,9 @@ var i = {
     con: function() {
         var consvar = "i.con's var";
         var self = this;
+        var iconf = function(){
+            console.log(this);
+        };
         console.log('~~~i.con的this:')
         console.log(this);
         return (function() {
@@ -50,6 +53,8 @@ var i = {
             console.log(i.att);
             console.log('~~~或者,利用self.att也可以');
             console.log(self.att);
+            console.log('~~~i.con函数作用域里的函数iconf里的this')
+            iconf();
             return '~~~done';
         })();
     }
@@ -81,7 +86,10 @@ i.con()
 > 或者,利用self.att也可以  
 > > **i's att**  
 > **done**  
-
+>   
+> i.con函数作用域里的函数iconf里的this  
+> > **Window**  
+> **done**  
 
 ##第二种情况,就是通过一个构造函数来创建对象i
 通过构造函数, **可以解决第三种情况中对象里的对象不能访问上一层的属性,**  
