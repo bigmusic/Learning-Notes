@@ -43,6 +43,8 @@ var i = {
         return (function() {
             console.log("~~~i.con返回一个匿名函数的this");
             console.log(this);
+            console.log('~~~i.con函数作用域里的函数iconf里的this')
+            iconf();
             console.log("~~~这个匿名函数依然能访问i.con的作用域的局部变量consvar")
             console.log(consvar);
             console.log("~~~在i.con里声明self=this,就可以在返回的匿名函数里通过self找回i.con的this")
@@ -53,8 +55,6 @@ var i = {
             console.log(i.att);
             console.log('~~~或者,利用self.att也可以');
             console.log(self.att);
-            console.log('~~~i.con函数作用域里的函数iconf里的this')
-            iconf();
             return '~~~done';
         })();
     }
@@ -69,7 +69,11 @@ i.con()
 > > **Object {att: "i's att", con: function}**  
 >   
 > i.con返回一个匿名函数的this  
+
 > > **Window**  
+>   
+> i.con函数作用域里的函数iconf里的this  
+> > **Window** 
 > 
 > 这个匿名函数依然能访问i.con的作用域的局部变量consvar  
 > > **i.con's var**  
@@ -86,10 +90,7 @@ i.con()
 > 或者,利用self.att也可以  
 > > **i's att**  
 > **done**  
->   
-> i.con函数作用域里的函数iconf里的this  
-> > **Window**  
-> **done**  
+
 
 ##第二种情况,就是通过一个构造函数来创建对象i
 通过构造函数, **可以解决第三种情况中对象里的对象不能访问上一层的属性,**  
